@@ -52,7 +52,7 @@ st.markdown(
     """
     <style>
     .main { 
-        background-color: #F0F2F6;
+        background-color: #black;
     }
     .stProgress > div > div > div > div {
         background-color: #4CAF50;
