@@ -52,7 +52,7 @@ st.markdown(
     """
     <style>
     .main { 
-        background-color: #black;
+        background-color: #F0F2F6;
     }
     .stProgress > div > div > div > div {
         background-color: #4CAF50;
@@ -99,25 +99,16 @@ if uploaded_file is not None:
     
     st.write("You can now ask questions based on the PDF content.")
     
-    if 'query_text' not in st.session_state:
-        st.session_state.query_text = ""
+    # Input field for user question
+    query_text = st.text_input("Enter your question:")
 
-    query_text = st.text_input("Enter your question:", value=st.session_state.query_text)
-    
-    if 'answered' not in st.session_state:
-        st.session_state.answered = False
-
-    if query_text and not st.session_state.answered:
+    if query_text:
         st.subheader(f"**QUESTION:** {query_text}")
         answer = qa_pipeline(question=query_text, context=raw_text)["answer"]
         st.subheader(f"**ANSWER:** {answer}")
-        st.session_state.answered = True
+        # Clear the input field after showing the answer
+        st.text_input("Enter your question:", value="", key="new_question")
 
-    if st.session_state.answered:
-        if st.button("Next Question"):
-            st.session_state.query_text = ""
-            st.session_state.answered = False
-            st.experimental_rerun()
 else:
     st.info("Please upload a PDF file to get started.")
 
